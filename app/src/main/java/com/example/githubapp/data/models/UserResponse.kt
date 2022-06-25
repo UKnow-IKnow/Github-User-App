@@ -1,3 +1,5 @@
 package com.example.githubapp.data.models
 
-class UserResponse : ArrayList<UserResponseItem>()
+data class UserResponse (
+  val items : ArrayList<UserResponseItem>
+)
