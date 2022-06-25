@@ -10,7 +10,6 @@ import com.example.githubapp.data.models.UserResponseItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Query
 
 class MainViewModel : ViewModel() {
 
