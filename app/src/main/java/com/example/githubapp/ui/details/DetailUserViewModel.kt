@@ -1,18 +1,34 @@
 package com.example.githubapp.ui.details
 
+import android.app.Application
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubapp.api.RetrofitClient
 import com.example.githubapp.data.models.detailUserResponse
+import com.example.githubapp.local.FavDao
+import com.example.githubapp.local.FavUser
+import com.example.githubapp.local.UserDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
+class DetailUserViewModel(application: Application) : AndroidViewModel(application) {
     val user = MutableLiveData<detailUserResponse>()
+
+    private var userDao: FavDao?
+    private var userDb: UserDatabase?
+
+    init {
+        userDb = UserDatabase.getDatabase(application)
+        userDao = userDb?.favUserDao()
+    }
 
     fun setUseDetail(username: String) {
         RetrofitClient.apiInstance
@@ -36,5 +52,23 @@ class DetailUserViewModel : ViewModel() {
     }
     fun getUserDetail(): LiveData<detailUserResponse>{
         return user
+    }
+
+    fun addToFav(username: String, id:Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            var user = FavUser(
+                username,
+                id
+            )
+            userDao?.addToFav(user)
+        }
+    }
+
+    suspend fun checkUser(id: Int) = userDao?.checkUser(id)
+
+    fun removeFromFav(id: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao?.removeFromFav(id)
+        }
     }
 }
