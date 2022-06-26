@@ -7,6 +7,10 @@ import com.example.githubapp.databinding.ActivityDetailUserBinding
 
 class DetailUserActivity : AppCompatActivity() {
 
+    companion object{
+        const val EXTRA_USERNAME = "extra_username"
+    }
+
     private lateinit var binding: ActivityDetailUserBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

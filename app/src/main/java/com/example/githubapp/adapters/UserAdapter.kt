@@ -8,12 +8,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.githubapp.R
 import com.example.githubapp.data.models.UserResponseItem
-import com.example.githubapp.databinding.FragmentUserBinding
+
+import com.example.githubapp.databinding.ItemUserBinding
 import kotlin.collections.ArrayList
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private val list = ArrayList<UserResponseItem>()
+
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     fun setList(users: ArrayList<UserResponseItem>){
         list.clear()
@@ -21,8 +28,13 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class UserViewHolder(val binding: FragmentUserBinding):RecyclerView.ViewHolder(binding.root){
+    inner class UserViewHolder(val binding: ItemUserBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(user: UserResponseItem){
+
+            binding.root.setOnClickListener {
+                onItemClickCallback?.onItemClicked(user)
+            }
+
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
@@ -35,7 +47,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view = FragmentUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserViewHolder((view))
     }
 
@@ -44,4 +56,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun getItemCount(): Int = list.size
+
+    interface OnItemClickCallback{
+        fun onItemClicked(data:UserResponseItem)
+    }
 }
