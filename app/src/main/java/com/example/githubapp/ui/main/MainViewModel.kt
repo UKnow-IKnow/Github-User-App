@@ -19,19 +19,21 @@ class MainViewModel : ViewModel() {
     fun setSearchUser(query: String){
         RetrofitClient.apiInstance
             .getSearchUsers(query)
-            .enqueue(object : Callback<UserResponse>{
+            .enqueue(object : Callback<ArrayList<UserResponseItem>>{
                 override fun onResponse(
-                    call: Call<UserResponse>,
-                    response: Response<UserResponse>
+                    call: Call<ArrayList<UserResponseItem>>,
+                    response: Response<ArrayList<UserResponseItem>>
                 ) {
                     if (response.isSuccessful){
-                        listUser.postValue(response.body()?.items)
+                        response.body()?.let {
+                            listUser.postValue(it)
+                        }
                     }else{
                         Log.d(TAG,"onResponse: ${response.errorBody()?.string()}")
                     }
                 }
 
-                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<UserResponseItem>>, t: Throwable) {
                     t.message?.let { Log.d("Failure", it) }
                 }
             })
