@@ -1,5 +1,6 @@
-package com.example.githubapp
+package com.example.githubapp.ui.main
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +26,8 @@ class MainViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful){
                         listUser.postValue(response.body()?.items)
+                    }else{
+                        Log.d(TAG,"onResponse: ${response.errorBody()?.string()}")
                     }
                 }
 

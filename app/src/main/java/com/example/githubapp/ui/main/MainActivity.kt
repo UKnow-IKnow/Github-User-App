@@ -1,4 +1,4 @@
-package com.example.githubapp
+package com.example.githubapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,9 +6,7 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.githubapp.adapters.UserAdapter
-import com.example.githubapp.data.models.UserResponseItem
 import com.example.githubapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
