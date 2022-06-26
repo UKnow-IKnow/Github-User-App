@@ -67,7 +67,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:drawableStartCompat="@drawable/ic_people"
-            tools:text="10 followers" />
+            tools:text="10 following" />
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
