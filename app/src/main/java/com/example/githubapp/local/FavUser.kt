@@ -8,5 +8,6 @@ import java.io.Serializable
 data class FavUser(
     val login: String,
     @PrimaryKey(autoGenerate = true)
-    val id: Int
+    val id: Int,
+    val avatar_url: String
 ): Serializable

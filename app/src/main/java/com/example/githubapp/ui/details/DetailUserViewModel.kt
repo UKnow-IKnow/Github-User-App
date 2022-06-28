@@ -54,11 +54,12 @@ class DetailUserViewModel(application: Application) : AndroidViewModel(applicati
         return user
     }
 
-    fun addToFav(username: String, id:Int){
+    fun addToFav(username: String, id:Int, avatarUrl: String){
         CoroutineScope(Dispatchers.IO).launch {
             var user = FavUser(
                 username,
-                id
+                id,
+                avatarUrl
             )
             userDao?.addToFav(user)
         }

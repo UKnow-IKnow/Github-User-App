@@ -21,6 +21,7 @@ class DetailUserActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USERNAME = "extra_username"
         const val EXTRA_ID = "extra_id"
+        const val EXTRA_URL = "extra_url"
     }
 
     private lateinit var binding: ActivityDetailUserBinding
@@ -34,6 +35,8 @@ class DetailUserActivity : AppCompatActivity() {
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
         val id = intent.getIntExtra(EXTRA_ID, 0)
+        val avatarUrl = intent.getStringExtra(EXTRA_URL)
+
         val bundle =Bundle()
         bundle.putString(EXTRA_USERNAME, username)
 
@@ -82,7 +85,9 @@ class DetailUserActivity : AppCompatActivity() {
             _isChecked = !_isChecked
             if (_isChecked){
                 if (username != null) {
-                    viewModel.addToFav(username, id)
+                    if (avatarUrl != null) {
+                        viewModel.addToFav(username, id, avatarUrl)
+                    }
                 }
             }else{
                 viewModel.removeFromFav(id)
