@@ -4,9 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubapp.R
 import com.example.githubapp.adapters.UserAdapter
 import com.example.githubapp.data.models.UserResponseItem
 import com.example.githubapp.databinding.ActivityFavBinding
