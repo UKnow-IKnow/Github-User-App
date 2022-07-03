@@ -4,13 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubapp.R
 import com.example.githubapp.adapters.UserAdapter
 import com.example.githubapp.data.models.UserResponseItem
 import com.example.githubapp.databinding.ActivityMainBinding
 import com.example.githubapp.ui.details.DetailUserActivity
+import com.example.githubapp.ui.fav.FavActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -80,5 +84,21 @@ class MainActivity : AppCompatActivity() {
             showLoading(true)
             viewModel.setSearchUser(query)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.fav_menu -> {
+                Intent(this, FavActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

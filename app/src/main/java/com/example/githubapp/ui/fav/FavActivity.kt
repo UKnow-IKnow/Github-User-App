@@ -49,12 +49,12 @@ class FavActivity : AppCompatActivity() {
         viewModel.getFavUser()?.observe(this, {
             if (it!=null){
                 val list = mapList(it)
-                adapter.setList()
+                adapter.setList(list)
             }
         })
     }
 
-    private fun mapList(users: List<FavUser>): Any {
+    private fun mapList(users: List<FavUser>): ArrayList<UserResponseItem> {
         val listUser = ArrayList<UserResponseItem>()
         for(user in users){
             val userMapped = UserResponseItem(
@@ -62,6 +62,8 @@ class FavActivity : AppCompatActivity() {
                 user.id,
                 user.avatar_url
             )
+            listUser.add(userMapped)
         }
+        return listUser
     }
 }
